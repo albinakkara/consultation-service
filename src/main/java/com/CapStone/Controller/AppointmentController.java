@@ -34,10 +34,21 @@ public class AppointmentController {
         this.notificationClient = notificationClient;
     }
 
+
     @GetMapping
-    public ResponseEntity<List<Appointment>> getAllAppointments() {
-        return ResponseEntity.ok(appointmentRepository.findAll());
+    public ResponseEntity<List<AppointmentDetailsDTO>> getAllAppointments(@RequestParam Long patientId) {
+        List<Appointment> appointments = appointmentRepository.findAppointmentsByPatientId(patientId);
+
+        List<AppointmentDetailsDTO> enrichedAppointments = appointments.stream()
+                .map(appointment -> {
+                    SkeletonDoctorDto doctor = doctorClient.getDoctorDetailsById(appointment.getDoctorId()).getBody();
+                    return new AppointmentDetailsDTO(appointment, doctor);
+                })
+                .toList();
+
+        return ResponseEntity.ok(enrichedAppointments);
     }
+
 
     @GetMapping("/{id}")
     public ResponseEntity<Appointment> getAppointmentById(@PathVariable Long id) {

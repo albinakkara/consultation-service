@@ -15,6 +15,7 @@ public class AppointmentDTO {
     private LocalTime appointmentSlot;
     private String reason;
     private String status;
+    private String priority;
 
     @NotNull(message = "doctor id is required")
     private Long doctorId;

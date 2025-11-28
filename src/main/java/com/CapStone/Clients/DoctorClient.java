@@ -1,5 +1,6 @@
 package com.CapStone.Clients;
 
+import com.CapStone.DTO.SkeletonDoctorDto;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,4 +14,7 @@ public interface DoctorClient {
 
     @GetMapping("internal/doctors/email/{id}")
     public ResponseEntity<String> getDoctorEmailById(@PathVariable("id") Long id);
+
+    @GetMapping("internal/doctors/details/{id}")
+    public ResponseEntity<SkeletonDoctorDto> getDoctorDetailsById(@PathVariable("id") Long id);
 }

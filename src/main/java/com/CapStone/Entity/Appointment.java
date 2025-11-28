@@ -2,9 +2,12 @@
 package com.CapStone.Entity;
 
 import jakarta.persistence.*;
+import lombok.Data;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+@Data
 @Entity
 @Table(name = "appointments")
 public class Appointment {
@@ -19,6 +22,9 @@ public class Appointment {
     @Column(nullable = false)
     private Long doctorId;
 
+    @Column(nullable = false)
+    private String priority="Low";
+
     private String reason;
 
     @Column(nullable = false)
@@ -28,7 +34,7 @@ public class Appointment {
     private LocalTime appointmentSlot; // Example: 10:00–10:30
 
     @Column(nullable = false)
-    private String status = "Scheduled"; // Scheduled / Completed / Cancelled
+    private String status = "Pending"; // Pending / Accepted / Completed / Cancelled
 
     public Appointment() {}
 
